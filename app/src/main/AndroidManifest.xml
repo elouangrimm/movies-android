@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/movies_round"
         android:label="movies.elouan.xyz"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/AppTheme" 
         tools:targetApi="31">
         
         <activity
