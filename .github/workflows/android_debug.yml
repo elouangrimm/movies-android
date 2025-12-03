@@ -18,11 +18,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # REMOVED: chmod +x gradlew (because you don't have the file)
+    # 1. Generate the Gradle Wrapper with a specific compatible version (8.2)
+    # This fixes the "Cannot mutate dependencies" error by ensuring we use the right Gradle version.
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper --gradle-version 8.2
 
+    # 2. Make the generated wrapper executable
+    - name: Make Gradlew Executable
+      run: chmod +x gradlew
+
+    # 3. Build using the wrapper we just created
     - name: Build Debug APK
-      # CHANGED: Use installed 'gradle' instead of './gradlew'
-      run: gradle assembleDebug
+      run: ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
