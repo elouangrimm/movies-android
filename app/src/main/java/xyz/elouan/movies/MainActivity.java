@@ -1,4 +1,4 @@
-package com.example.popcornmovies;
+package xyz.elouan.movies;
 
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
