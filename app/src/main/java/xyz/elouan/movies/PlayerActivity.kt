@@ -46,9 +46,8 @@ class PlayerActivity : AppCompatActivity() {
         // Domains that our embed players are known to load content from.
         // Any navigation OUTSIDE these is silently dropped — the cage wall.
         private val ALLOWED_DOMAINS = setOf(
-            "player.popembed.net", "vidlink.pro",       "player.videasy.net",
-            "vidsrc.me",           "vidsrc.pro",        "2embed.cc",
-            "multiembed.mov",      "getsuperembed.link",
+            "vidlink.pro",     "vidsrc-embed.ru",   "vidsrc.me",
+            "2embed.cc",       "multiembed.mov",    "getsuperembed.link",
             // CDNs and common video delivery infrastructure
             "jsdelivr.net",    "cdnjs.cloudflare.com",
             "googleapis.com",  "gstatic.com",

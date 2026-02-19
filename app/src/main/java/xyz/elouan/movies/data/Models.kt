@@ -31,28 +31,19 @@ data class EmbedSource(
 )
 
 val EMBED_SOURCES = listOf(
-    EmbedSource("PopCorn",
-        movieUrl = "https://player.popembed.net/embed/movie/{id}",
-        tvUrl    = "https://player.popembed.net/embed/tv/{id}/{s}/{e}"),
-    EmbedSource("Viper",
+    EmbedSource("VidLink",
         movieUrl = "https://vidlink.pro/movie/{id}",
         tvUrl    = "https://vidlink.pro/tv/{id}/{s}/{e}"),
-    EmbedSource("vidsrc-embed.ru",
+    EmbedSource("Vidsrc.ru",
         movieUrl = "https://vidsrc-embed.ru/embed/movie?imdb={id}",
         tvUrl    = "https://vidsrc-embed.ru/embed/tv?imdb={id}&season={s}&episode={e}"),
-    EmbedSource("4K Astra",
-        movieUrl = "https://player.videasy.net/movie/{id}",
-        tvUrl    = "https://player.videasy.net/tv/{id}/{s}/{e}"),
-    EmbedSource("Lima",
+    EmbedSource("Vidsrc.me",
         movieUrl = "https://vidsrc.me/embed/movie/{id}",
         tvUrl    = "https://vidsrc.me/embed/tv/{id}/{s}/{e}"),
-    EmbedSource("Hulu",
-        movieUrl = "https://vidsrc.pro/embed/movie/{id}",
-        tvUrl    = "https://vidsrc.pro/embed/tv/{id}/{s}/{e}"),
-    EmbedSource("GDrive",
+    EmbedSource("2Embed",
         movieUrl = "https://2embed.cc/embed/{id}",
         tvUrl    = "https://2embed.cc/embedtv/{id}&s={s}&e={e}"),
-    EmbedSource("Alpha",
+    EmbedSource("Multi",
         movieUrl = "https://multiembed.mov/?video_id={id}",
         tvUrl    = "https://multiembed.mov/?video_id={id}&s={s}&e={e}")
 )
