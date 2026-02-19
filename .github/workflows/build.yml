@@ -36,18 +36,20 @@ jobs:
       - name: Rename debug APK
         run: |
           mv app/build/outputs/apk/debug/app-debug.apk \
-             movies-debug-${{ github.run_number }}.apk
+             movies-debug.apk
 
       - name: Create or update Nightly Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: nightly
-          name: Nightly Build
+          name: Auto build - Run #${{ github.run_number }}
           body: |
             Automatic debug build.
             Run number: ${{ github.run_number }}
             Commit: ${{ github.sha }}
-          files: movies-debug-${{ github.run_number }}.apk
+            Nightly download link: 
+          files: movies-debug.apk
+          overwrite: true
           prerelease: true
           make_latest: false
         env:
