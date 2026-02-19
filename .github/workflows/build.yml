@@ -33,12 +33,26 @@ jobs:
         env:
           OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
 
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v4
+      - name: Rename debug APK
+        run: |
+          mv app/build/outputs/apk/debug/app-debug.apk \
+             movies-debug-${{ github.run_number }}.apk
+
+      - name: Create or update Nightly Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: movies-debug-${{ github.run_number }}
-          path: app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 30
+          tag_name: nightly
+          name: Nightly Build
+          body: |
+            Automatic debug build.
+            Run number: ${{ github.run_number }}
+            Commit: ${{ github.sha }}
+          files: movies-debug-${{ github.run_number }}.apk
+          prerelease: true
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
   # Optional: build a signed release APK.
   # Enable by setting the repository variable HAS_SIGNING=true
