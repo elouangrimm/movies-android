@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backgrounds -->
+    <color name="bg_primary">#0A0A0A</color>
+    <color name="bg_secondary">#161616</color>
+
+    <!-- Text -->
+    <color name="text_primary">#F5F5F0</color>
+    <color name="text_secondary">#787878</color>
+
+    <!-- Accent -->
+    <color name="accent">#E5E5E0</color>
+    <color name="accent_dim">#2A2A2A</color>
+
+    <!-- Player overlays -->
+    <color name="controls_scrim">#00000000</color>
+    <color name="controls_bg">#CC000000</color>
+</resources>

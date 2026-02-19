@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-screen player. WebView behind a fixed bottom controls bar. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!-- The video WebView fills the entire screen -->
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Loading indicator -->
+    <TextView
+        android:id="@+id/loading_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/loading"
+        android:textColor="#99ffffff"
+        android:textSize="14sp"
+        android:visibility="visible" />
+
+    <!-- Controls bar pinned to the bottom — does NOT intercept WebView touches above it -->
+    <LinearLayout
+        android:id="@+id/controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@color/controls_bg"
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp">
+
+        <!-- Top row of controls bar: back + series spinners -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/back"
+                android:textColor="@color/text_primary"
+                android:background="@null"
+                android:textSize="13sp"
+                android:isAllCaps="false"
+                android:minWidth="0dp"
+                android:paddingEnd="12dp" />
+
+            <!-- Series row: season + episode spinners (hidden for movies) -->
+            <LinearLayout
+                android:id="@+id/series_row"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Spinner
+                    android:id="@+id/season_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/spinner_bg"
+                    android:popupBackground="@color/bg_secondary" />
+
+                <Spinner
+                    android:id="@+id/episode_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/spinner_bg"
+                    android:popupBackground="@color/bg_secondary" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Source buttons in a horizontal scroll -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <LinearLayout
+                android:id="@+id/source_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical" />
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
+
