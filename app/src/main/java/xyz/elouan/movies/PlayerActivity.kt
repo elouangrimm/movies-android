@@ -3,7 +3,10 @@ package xyz.elouan.movies
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Message
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -43,9 +46,9 @@ class PlayerActivity : AppCompatActivity() {
         // Domains that our embed players are known to load content from.
         // Any navigation OUTSIDE these is silently dropped — the cage wall.
         private val ALLOWED_DOMAINS = setOf(
-            "vidsrc-embed.ru", "player.videasy.net", "2embed.cc",
-            "vidlink.pro",     "multiembed.mov",     "fsapi.xyz",
-            "gomo.to",         "vidcloud.stream",    "getsuperembed.link",
+            "player.popembed.net", "vidlink.pro",       "player.videasy.net",
+            "vidsrc.me",           "vidsrc.pro",        "2embed.cc",
+            "multiembed.mov",      "getsuperembed.link",
             // CDNs and common video delivery infrastructure
             "jsdelivr.net",    "cdnjs.cloudflare.com",
             "googleapis.com",  "gstatic.com",
@@ -75,6 +78,29 @@ class PlayerActivity : AppCompatActivity() {
     private var currentSourceIndex = 0
 
     private var episodeCounts = mutableListOf<Int>()
+
+    // ─── Auto-fade ────────────────────────────────────────────────────────────
+    private val hideHandler  = Handler(Looper.getMainLooper())
+    private val hideRunnable = Runnable {
+        controls.animate().alpha(0f).setDuration(500).start()
+    }
+
+    private fun showControls() {
+        hideHandler.removeCallbacks(hideRunnable)
+        controls.animate().cancel()
+        controls.alpha = 1f
+        scheduleHide()
+    }
+
+    private fun scheduleHide() {
+        hideHandler.removeCallbacks(hideRunnable)
+        hideHandler.postDelayed(hideRunnable, 2000L)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) showControls()
+        return super.dispatchTouchEvent(ev)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +149,8 @@ class PlayerActivity : AppCompatActivity() {
             seriesRow.isVisible = false
             loadSource(currentSourceIndex)
         }
+
+        scheduleHide()
     }
 
     // ─── WebView cage setup ───────────────────────────────────────────────────
@@ -195,15 +223,16 @@ class PlayerActivity : AppCompatActivity() {
                 customView?.let { (it.parent as? ViewGroup)?.removeView(it) }
                 customView = view
                 (window.decorView as ViewGroup).addView(view, ViewGroup.LayoutParams(-1, -1))
-                webView.isVisible  = false
-                controls.isVisible = false
+                webView.isVisible = false
+                hideHandler.removeCallbacks(hideRunnable)
+                controls.animate().alpha(0f).setDuration(200).start()
             }
 
             override fun onHideCustomView() {
                 (customView?.parent as? ViewGroup)?.removeView(customView)
-                customView         = null
-                webView.isVisible  = true
-                controls.isVisible = true
+                customView        = null
+                webView.isVisible = true
+                showControls()
             }
         }
     }
@@ -217,12 +246,20 @@ class PlayerActivity : AppCompatActivity() {
             if ((isTv && source.tvUrl != null) || (!isTv && source.movieUrl != null)) {
                 val btn = Button(this).apply {
                     text        = source.name
-                    textSize    = 11f
+                    textSize    = 12f
                     isAllCaps   = false
+                    minWidth    = 0
+                    minimumWidth = 0
                     tag         = index
                     setOnClickListener { loadSource(index) }
                     setTextColor(resources.getColor(R.color.text_secondary, theme))
                     setBackgroundResource(R.drawable.source_button_bg)
+                    setPaddingRelative(
+                        resources.getDimensionPixelSize(R.dimen.source_gap),
+                        0,
+                        resources.getDimensionPixelSize(R.dimen.source_gap),
+                        0
+                    )
                 }
                 sourceBar.addView(btn, LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -324,6 +361,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        hideHandler.removeCallbacks(hideRunnable)
         webView.stopLoading()
         webView.destroy()
         super.onDestroy()

@@ -22,16 +22,16 @@
         android:textSize="14sp"
         android:visibility="visible" />
 
-    <!-- Controls bar pinned to the bottom — does NOT intercept WebView touches above it -->
+    <!-- Controls bar pinned to the top — does NOT intercept WebView touches below it -->
     <LinearLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:orientation="vertical"
         android:background="@color/controls_bg"
-        android:paddingTop="6dp"
-        android:paddingBottom="10dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp">
 
         <!-- Top row of controls bar: back + series spinners -->
         <LinearLayout

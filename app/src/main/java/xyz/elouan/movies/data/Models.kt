@@ -31,30 +31,30 @@ data class EmbedSource(
 )
 
 val EMBED_SOURCES = listOf(
+    EmbedSource("PopCorn",
+        movieUrl = "https://player.popembed.net/embed/movie/{id}",
+        tvUrl    = "https://player.popembed.net/embed/tv/{id}/{s}/{e}"),
+    EmbedSource("Viper",
+        movieUrl = "https://vidlink.pro/movie/{id}",
+        tvUrl    = "https://vidlink.pro/tv/{id}/{s}/{e}"),
     EmbedSource("vidsrc-embed.ru",
         movieUrl = "https://vidsrc-embed.ru/embed/movie?imdb={id}",
         tvUrl    = "https://vidsrc-embed.ru/embed/tv?imdb={id}&season={s}&episode={e}"),
-    EmbedSource("player.videasy.net",
-        movieUrl = "https://player.videasy.net/embed/{id}",
+    EmbedSource("4K Astra",
+        movieUrl = "https://player.videasy.net/movie/{id}",
         tvUrl    = "https://player.videasy.net/tv/{id}/{s}/{e}"),
-    EmbedSource("2embed.cc",
+    EmbedSource("Lima",
+        movieUrl = "https://vidsrc.me/embed/movie/{id}",
+        tvUrl    = "https://vidsrc.me/embed/tv/{id}/{s}/{e}"),
+    EmbedSource("Hulu",
+        movieUrl = "https://vidsrc.pro/embed/movie/{id}",
+        tvUrl    = "https://vidsrc.pro/embed/tv/{id}/{s}/{e}"),
+    EmbedSource("GDrive",
         movieUrl = "https://2embed.cc/embed/{id}",
         tvUrl    = "https://2embed.cc/embedtv/{id}&s={s}&e={e}"),
-    EmbedSource("vidlink.pro",
-        movieUrl = "https://vidlink.pro/embed/{id}",
-        tvUrl    = "https://vidlink.pro/tv/{id}/{s}/{e}"),
-    EmbedSource("multiembed.mov",
+    EmbedSource("Alpha",
         movieUrl = "https://multiembed.mov/?video_id={id}",
-        tvUrl    = "https://multiembed.mov/?video_id={id}&s={s}&e={e}"),
-    EmbedSource("fsapi.xyz",
-        movieUrl = "https://fsapi.xyz/movie/{id}",
-        tvUrl    = "https://fsapi.xyz/tv-imdb/{id}-{s}-{e}"),
-    EmbedSource("gomo.to",
-        movieUrl = "https://gomo.to/movie/{id}",
-        tvUrl    = null),
-    EmbedSource("vidcloud.stream",
-        movieUrl = "https://vidcloud.stream/{id}.html",
-        tvUrl    = null)
+        tvUrl    = "https://multiembed.mov/?video_id={id}&s={s}&e={e}")
 )
 
 fun EmbedSource.resolveUrl(imdbId: String, season: Int = 1, episode: Int = 1, isTv: Boolean): String? {
