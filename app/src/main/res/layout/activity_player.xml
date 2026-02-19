@@ -51,7 +51,7 @@
                 android:textColor="@color/text_primary"
                 android:background="@null"
                 android:textSize="13sp"
-                android:isAllCaps="false"
+                android:textAllCaps="false"
                 android:minWidth="0dp"
                 android:paddingEnd="12dp" />
 
